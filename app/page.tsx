@@ -21,7 +21,7 @@ export default function Home() {
     <div className="container">
       <h1>GitHub Badge Generator</h1>
       <p className="subtitle">
-        Shields.io & Skill Icons를 활용한 기술 스택 배지 생성기
+        Shields.io & Skill Icons를 활용한 기술 스택 뱃지 생성기
       </p>
 
       <ProviderSelector

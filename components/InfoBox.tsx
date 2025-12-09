@@ -8,7 +8,7 @@ export default function InfoBox({ provider }: InfoBoxProps) {
       {provider === "shields" ? (
         <>
           <strong>Shields.io:</strong> 다양한 스타일과 커스터마이징 옵션. 개별
-          배지 형태로 세밀한 조정 가능.
+          뱃지 형태로 세밀한 조정 가능.
         </>
       ) : (
         <>
