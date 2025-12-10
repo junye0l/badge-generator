@@ -1,8 +1,9 @@
 "use client";
 
-import { techStack } from "@/lib/techStack";
+import { techStack, socialMedia } from "@/lib/techStack";
 import {
   generateShieldsBadgeUrl,
+  generateSocialBadgeUrl,
   getAllIcons,
   generateSkillIconsUrl,
   chunkArray,
@@ -32,24 +33,32 @@ export default function BadgePreview({
             provider === "skill-icons" ? "badge-grid-column" : "badge-grid"
           }
         >
-          {provider === "shields"
-            ? Object.values(techStack).map((techs, categoryIndex) =>
-                techs.map((tech, techIndex) => (
-                  <img
-                    key={`${categoryIndex}-${techIndex}`}
-                    src={generateShieldsBadgeUrl(tech, shieldsStyle)}
-                    alt={tech.name}
-                  />
-                )),
-              )
-            : chunkArray(getAllIcons(), perLine).map((chunk, index) => (
+          {provider === "shields" && shieldsStyle === "social"
+            ? socialMedia.map((social, index) => (
                 <img
                   key={index}
-                  src={generateSkillIconsUrl(chunk, skillTheme, perLine)}
-                  alt={`Tech Stack Line ${index + 1}`}
-                  style={{ maxWidth: "100%", height: "auto" }}
+                  src={generateSocialBadgeUrl(social)}
+                  alt={social.name}
                 />
-              ))}
+              ))
+            : provider === "shields"
+              ? Object.values(techStack).map((techs, categoryIndex) =>
+                  techs.map((tech, techIndex) => (
+                    <img
+                      key={`${categoryIndex}-${techIndex}`}
+                      src={generateShieldsBadgeUrl(tech, shieldsStyle)}
+                      alt={tech.name}
+                    />
+                  )),
+                )
+              : chunkArray(getAllIcons(), perLine).map((chunk, index) => (
+                  <img
+                    key={index}
+                    src={generateSkillIconsUrl(chunk, skillTheme, perLine)}
+                    alt={`Tech Stack Line ${index + 1}`}
+                    style={{ maxWidth: "100%", height: "auto" }}
+                  />
+                ))}
         </div>
       </div>
     </>

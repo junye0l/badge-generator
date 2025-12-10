@@ -26,6 +26,7 @@ export default function StyleOptions({
     { value: "flat-square", label: "Flat Square" },
     { value: "for-the-badge", label: "For the Badge" },
     { value: "plastic", label: "Plastic (3D)" },
+    { value: "social", label: "Social" },
   ];
 
   const perLineOptions = [6, 8, 10, 15];

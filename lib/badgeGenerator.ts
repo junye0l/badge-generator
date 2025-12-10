@@ -1,6 +1,11 @@
-import { Tech, techStack } from "./techStack";
+import { Tech, techStack, SocialMedia, socialMedia } from "./techStack";
 
-export type ShieldsStyle = "flat" | "flat-square" | "for-the-badge" | "plastic";
+export type ShieldsStyle =
+  | "flat"
+  | "flat-square"
+  | "for-the-badge"
+  | "plastic"
+  | "social";
 export type SkillTheme = "dark" | "light";
 
 export function generateShieldsBadgeUrl(
@@ -11,6 +16,11 @@ export function generateShieldsBadgeUrl(
     ? "black"
     : "white";
   return `https://img.shields.io/badge/${encodeURIComponent(tech.name)}-${tech.color}?style=${style}&logo=${tech.shields}&logoColor=${logoColor}`;
+}
+
+export function generateSocialBadgeUrl(social: SocialMedia): string {
+  // for-the-badge 스타일에 logoColor=white 사용 (표준 소셜 미디어 뱃지 패턴)
+  return `https://img.shields.io/badge/${encodeURIComponent(social.name)}-${social.color}?style=for-the-badge&logo=${social.shields}&logoColor=white`;
 }
 
 export function getAllIcons(): string[] {
@@ -43,9 +53,20 @@ export function generateMarkdown(
   skillTheme: SkillTheme,
   perLine: number,
 ): string {
-  let markdown = "# Tech Stack\n\n";
+  let markdown = "";
 
-  if (provider === "shields") {
+  if (provider === "shields" && shieldsStyle === "social") {
+    markdown += "# Connect with Me\n\n";
+    markdown += '<div align="center">\n\n';
+    socialMedia.forEach((social) => {
+      const badgeUrl = generateSocialBadgeUrl(social);
+      markdown += `<a href="${social.url}">\n`;
+      markdown += `  <img src="${badgeUrl}" />\n`;
+      markdown += `</a>\n`;
+    });
+    markdown += "\n</div>\n";
+  } else if (provider === "shields") {
+    markdown += "# Tech Stack\n\n";
     Object.entries(techStack).forEach(([category, techs]) => {
       markdown += `## ${category}\n\n`;
       markdown += '<div align="center">\n';
@@ -56,6 +77,7 @@ export function generateMarkdown(
       markdown += "</div>\n\n";
     });
   } else {
+    markdown += "# Tech Stack\n\n";
     markdown += '<div align="center">\n\n';
     const allIcons = getAllIcons();
     const iconChunks = chunkArray(allIcons, perLine);
