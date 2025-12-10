@@ -1,8 +1,8 @@
 "use client";
 
 interface ProviderSelectorProps {
-  currentProvider: "shields" | "skill-icons";
-  onProviderChange: (provider: "shields" | "skill-icons") => void;
+  currentProvider: "shields" | "skill-icons" | "typing-svg";
+  onProviderChange: (provider: "shields" | "skill-icons" | "typing-svg") => void;
 }
 
 export default function ProviderSelector({
@@ -22,6 +22,12 @@ export default function ProviderSelector({
         onClick={() => onProviderChange("skill-icons")}
       >
         Skill Icons
+      </button>
+      <button
+        className={`provider-btn ${currentProvider === "typing-svg" ? "active" : ""}`}
+        onClick={() => onProviderChange("typing-svg")}
+      >
+        Typing SVG
       </button>
     </div>
   );

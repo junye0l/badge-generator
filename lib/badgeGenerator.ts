@@ -19,7 +19,6 @@ export function generateShieldsBadgeUrl(
 }
 
 export function generateSocialBadgeUrl(social: SocialMedia): string {
-  // for-the-badge 스타일에 logoColor=white 사용 (표준 소셜 미디어 뱃지 패턴)
   return `https://img.shields.io/badge/${encodeURIComponent(social.name)}-${social.color}?style=for-the-badge&logo=${social.shields}&logoColor=white`;
 }
 

@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "GitHub Badge Generator",
-  description: "Shields.io & Skill Icons를 활용한 기술 스택 뱃지 생성기",
+  description: "깃허브 프로필 꾸미기 편의기능 모음",
 };
 
 export default function RootLayout({

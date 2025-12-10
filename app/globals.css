@@ -1,8 +1,9 @@
 @font-face {
-  font-family: 'DNFBitBitv2';
+  font-family: "DNFBitBitv2";
   font-style: normal;
   font-weight: 400;
-  src: url('//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf') format('opentype');
+  src: url("//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf")
+    format("opentype");
 }
 
 * {
@@ -17,12 +18,15 @@ input {
 }
 
 body {
-  font-family: 'DNFBitBitv2', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "DNFBitBitv2", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
   padding: 40px 20px;
 }
 
+select {
+  font-family: "DNFBitBitv2", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -105,7 +109,7 @@ h1 {
   color: #d4d4d4;
   padding: 20px;
   border-radius: 8px;
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   font-size: 14px;
   overflow-x: auto;
   white-space: pre-wrap;

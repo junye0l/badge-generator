@@ -20,6 +20,15 @@ export default function Footer() {
         >
           tandpfun/skill-icons
         </a>
+        <br />
+        <strong>Typing SVG:</strong>{" "}
+        <a
+          href="https://github.com/denvercoder1/readme-typing-svg"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          denvercoder1/readme-typing-svg
+        </a>
       </p>
     </div>
   );

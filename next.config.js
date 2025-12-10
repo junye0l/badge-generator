@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'skillicons.dev',
       },
+      {
+        protocol: 'https',
+        hostname: 'readme-typing-svg.demolab.com',
+      },
     ],
   },
   async headers() {
@@ -19,7 +23,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "img-src 'self' data: https://img.shields.io https://skillicons.dev;",
+            value: "img-src 'self' data: https://img.shields.io https://skillicons.dev https://readme-typing-svg.demolab.com;",
           },
         ],
       },
