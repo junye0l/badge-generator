@@ -29,6 +29,7 @@ export const typingSvgFonts: TypingSvgFont[] = [
   { name: "Sunflower", value: "Sunflower", category: "korean" },
   { name: "Stylish", value: "Stylish", category: "korean" },
   { name: "Gothic A1", value: "Gothic+A1", category: "korean" },
+  { name: "Gaegu", value: "Gaegu", category: "korean" },
 ];
 
 export const typingSvgColors = [
