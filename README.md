@@ -27,3 +27,5 @@
 <a href="https://github.com/Ileriayo/markdown-badges">Shields.io</a>
 
 <a href="https://github.com/tandpfun/skill-icons">Skill Icons</a>
+
+<a href="https://github.com/DenverCoder1/readme-typing-svg">readme-typing-svg</a>
