@@ -29,6 +29,15 @@ export default function Footer() {
         >
           denvercoder1/readme-typing-svg
         </a>
+        <br />
+        <strong>GitHub Stats:</strong>{" "}
+        <a
+          href="https://github.com/anuraghazra/github-readme-stats"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          anuraghazra/github-readme-stats
+        </a>
       </p>
     </div>
   );
