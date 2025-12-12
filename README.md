@@ -1,4 +1,4 @@
-**<mark>GitHub 뱃지 생성기 - Shields.io와 Skill Icons를 활용한 기술 스택 뱃지 생성 도구</mark>**
+**<mark>GitHub 뱃지 생성기 - 깃허브 프로필 꾸미기 편의기능 모음</mark>**
 
 # 소개
 
@@ -19,6 +19,11 @@
 
 # Skill Icons
 <img width="641" height="728" alt="스크린샷 2025-12-10 01 02 19" src="https://github.com/user-attachments/assets/827b4de5-db0e-4d48-82bf-c18a6cace13d" />
+
+</br>
+
+# Typing SVG
+<img width="934" height="632" alt="스크린샷 2025-12-10 20 57 10" src="https://github.com/user-attachments/assets/d56159fa-c148-42eb-ba25-8270b0c9b98b" />
 
 </br>
 
