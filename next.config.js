@@ -14,6 +14,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'readme-typing-svg.demolab.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'github-readme-stats-sigma-five.vercel.app',
+      },
     ],
   },
   async headers() {
@@ -23,7 +27,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "img-src 'self' data: https://img.shields.io https://skillicons.dev https://readme-typing-svg.demolab.com;",
+            value: "img-src 'self' data: https://img.shields.io https://skillicons.dev https://readme-typing-svg.demolab.com https://github-readme-stats-sigma-five.vercel.app;",
           },
         ],
       },

@@ -11,15 +11,19 @@ import { ShieldsStyle, SkillTheme } from "@/lib/badgeGenerator";
 import TypingOptions from "@/components/TypingOptions";
 import TypingPreview from "@/components/TypingPreview";
 import { TypingSvgConfig, defaultTypingSvgConfig } from "@/lib/typingSvg";
+import GitHubStatsOptions from "@/components/GitHubStatsOptions";
+import GitHubStatsPreview from "@/components/GitHubStatsPreview";
+import { GitHubStatsConfig, defaultGitHubStatsConfig } from "@/lib/githubStats";
 
 export default function Home() {
-  const [provider, setProvider] = useState<"shields" | "skill-icons" | "typing-svg">(
+  const [provider, setProvider] = useState<"shields" | "skill-icons" | "typing-svg" | "github-stats">(
     "shields",
   );
   const [shieldsStyle, setShieldsStyle] = useState<ShieldsStyle>("plastic");
   const [skillTheme, setSkillTheme] = useState<SkillTheme>("dark");
   const [perLine, setPerLine] = useState(8);
   const [typingConfig, setTypingConfig] = useState<TypingSvgConfig>(defaultTypingSvgConfig);
+  const [githubStatsConfig, setGithubStatsConfig] = useState<GitHubStatsConfig>(defaultGitHubStatsConfig);
 
   return (
     <div className="container">
@@ -39,6 +43,11 @@ export default function Home() {
         <>
           <TypingOptions config={typingConfig} onConfigChange={setTypingConfig} />
           <TypingPreview config={typingConfig} />
+        </>
+      ) : provider === "github-stats" ? (
+        <>
+          <GitHubStatsOptions config={githubStatsConfig} onConfigChange={setGithubStatsConfig} />
+          <GitHubStatsPreview config={githubStatsConfig} />
         </>
       ) : (
         <>
@@ -67,6 +76,7 @@ export default function Home() {
         skillTheme={skillTheme}
         perLine={perLine}
         typingConfig={typingConfig}
+        githubStatsConfig={githubStatsConfig}
       />
 
       <Footer />

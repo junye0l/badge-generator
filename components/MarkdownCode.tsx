@@ -7,13 +7,15 @@ import {
   SkillTheme,
 } from "@/lib/badgeGenerator";
 import { TypingSvgConfig, generateTypingSvgMarkdown } from "@/lib/typingSvg";
+import { GitHubStatsConfig, generateGitHubStatsMarkdown } from "@/lib/githubStats";
 
 interface MarkdownCodeProps {
-  provider: "shields" | "skill-icons" | "typing-svg";
+  provider: "shields" | "skill-icons" | "typing-svg" | "github-stats";
   shieldsStyle: ShieldsStyle;
   skillTheme: SkillTheme;
   perLine: number;
   typingConfig?: TypingSvgConfig;
+  githubStatsConfig?: GitHubStatsConfig;
 }
 
 export default function MarkdownCode({
@@ -22,11 +24,14 @@ export default function MarkdownCode({
   skillTheme,
   perLine,
   typingConfig,
+  githubStatsConfig,
 }: MarkdownCodeProps) {
   const [copied, setCopied] = useState(false);
 
   const markdown = provider === "typing-svg" && typingConfig
     ? generateTypingSvgMarkdown(typingConfig)
+    : provider === "github-stats" && githubStatsConfig
+    ? generateGitHubStatsMarkdown(githubStatsConfig)
     : generateMarkdown(
         provider as "shields" | "skill-icons",
         shieldsStyle,
