@@ -7,11 +7,12 @@ interface PokemonPreviewProps {
 }
 
 export default function PokemonPreview({ config }: PokemonPreviewProps) {
-  const { username, chainId } = config;
+  const { username, chainId, generation } = config;
 
+  const gen = generation || "gen1";
   const cardUrl =
     username && chainId
-      ? `${window.location.origin}/api/pokemon?user=${encodeURIComponent(username)}&chain=${encodeURIComponent(chainId)}`
+      ? `${window.location.origin}/api/pokemon?user=${encodeURIComponent(username)}&gen=${encodeURIComponent(gen)}&starter=${encodeURIComponent(chainId)}`
       : "";
 
   return (

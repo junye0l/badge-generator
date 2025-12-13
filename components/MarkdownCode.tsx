@@ -35,7 +35,9 @@ export default function MarkdownCode({
     if (!config.username || !config.chainId) {
       return "# 사용자명과 진화 라인을 선택해주세요";
     }
-    const cardUrl = `https://badge-generators.vercel.app/api/pokemon?user=${encodeURIComponent(config.username)}&chain=${encodeURIComponent(config.chainId)}`;
+    // 새로운 방식: gen + starter 사용
+    const gen = config.generation || "gen1";
+    const cardUrl = `https://badge-generators.vercel.app/api/pokemon?user=${encodeURIComponent(config.username)}&gen=${encodeURIComponent(gen)}&starter=${encodeURIComponent(config.chainId)}`;
     return `# My Pokemon\n\n<div align="center">\n  <img src="${cardUrl}" alt="My Pokemon" />\n</div>`;
   };
 

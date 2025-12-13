@@ -26,7 +26,11 @@ export default function Home() {
   const [perLine, setPerLine] = useState(8);
   const [typingConfig, setTypingConfig] = useState<TypingSvgConfig>(defaultTypingSvgConfig);
   const [githubStatsConfig, setGithubStatsConfig] = useState<GitHubStatsConfig>(defaultGitHubStatsConfig);
-  const [pokemonConfig, setPokemonConfig] = useState<PokemonConfig>({ username: "", chainId: "pikachu" });
+  const [pokemonConfig, setPokemonConfig] = useState<PokemonConfig>({
+    username: "",
+    chainId: "pikachu",
+    generation: "gen1",
+  });
 
   return (
     <div className="container">

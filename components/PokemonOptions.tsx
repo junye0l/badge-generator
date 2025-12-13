@@ -1,10 +1,12 @@
 "use client";
 
-import { evolutionChains } from "@/lib/pokemon";
+import { useEffect, useState } from "react";
+import { POKEMON_GENERATIONS } from "@/lib/pokemon";
 
 export interface PokemonConfig {
   username: string;
   chainId: string;
+  generation?: string;
 }
 
 interface PokemonOptionsProps {
@@ -12,10 +14,36 @@ interface PokemonOptionsProps {
   onConfigChange: (config: PokemonConfig) => void;
 }
 
-export default function PokemonOptions({
-  config,
-  onConfigChange,
-}: PokemonOptionsProps) {
+export default function PokemonOptions({ config, onConfigChange }: PokemonOptionsProps) {
+  const generationKeys = Object.keys(POKEMON_GENERATIONS);
+  const fallbackGeneration = generationKeys[0] ?? "gen1";
+  const resolvedInitialGen =
+    (config.generation && POKEMON_GENERATIONS[config.generation] ? config.generation : undefined) ||
+    fallbackGeneration;
+  const [selectedGen, setSelectedGen] = useState<string>(resolvedInitialGen);
+
+  useEffect(() => {
+    if (config.generation && POKEMON_GENERATIONS[config.generation] && config.generation !== selectedGen) {
+      setSelectedGen(config.generation);
+    }
+  }, [config.generation, selectedGen]);
+
+  const handleGenerationChange = (gen: string) => {
+    if (!POKEMON_GENERATIONS[gen] || POKEMON_GENERATIONS[gen].chains.length === 0) {
+      return;
+    }
+    setSelectedGen(gen);
+    const firstChain = POKEMON_GENERATIONS[gen].chains[0];
+    onConfigChange({ ...config, chainId: firstChain.id, generation: gen });
+  };
+
+  const handlePokemonSelect = (chainId: string) => {
+    onConfigChange({ ...config, chainId, generation: selectedGen });
+  };
+
+  const currentGeneration =
+    POKEMON_GENERATIONS[selectedGen] ?? POKEMON_GENERATIONS[fallbackGeneration];
+
   return (
     <div className="options-container">
       <h2>포켓몬 설정</h2>
@@ -38,25 +66,50 @@ export default function PokemonOptions({
       </div>
 
       <div className="option-group">
-        <label htmlFor="evolution-chain">진화 라인 선택</label>
-        <div className="pokemon-grid">
-          {evolutionChains.map((chain) => (
-            <div
-              key={chain.id}
-              className={`pokemon-card ${config.chainId === chain.id ? "selected" : ""}`}
-              onClick={() => onConfigChange({ ...config, chainId: chain.id })}
+        <label>세대 선택</label>
+        <div className="generation-tabs">
+          {Object.entries(POKEMON_GENERATIONS).map(([genKey, genData]) => (
+            <button
+              key={genKey}
+              className={`gen-tab ${selectedGen === genKey ? "active" : ""}`}
+              onClick={() => handleGenerationChange(genKey)}
             >
-              <div className="pokemon-stages">
-                {chain.stages.map((pokemon, index) => (
-                  <span key={pokemon.id} className="pokemon-name">
-                    {pokemon.koreanName}
-                    {index < chain.stages.length - 1 && " → "}
-                  </span>
-                ))}
-              </div>
-              <div className="chain-name">{chain.name}</div>
-            </div>
+              {genData.name}
+            </button>
           ))}
+        </div>
+      </div>
+
+      <div className="option-group">
+        <label htmlFor="evolution-chain">진화 라인 선택</label>
+        <p className="help-text generation-help">
+          {currentGeneration.name} 포켓몬 ({currentGeneration.chains.length}종)
+        </p>
+        <div className="pokemon-grid">
+          {currentGeneration.chains.map((chain) => {
+            const cardClasses = [
+              "pokemon-card",
+              chain.isLegendary ? "legendary" : "",
+              config.chainId === chain.id ? "selected" : "",
+            ]
+              .filter(Boolean)
+              .join(" ");
+
+            return (
+              <div key={chain.id} className={cardClasses} onClick={() => handlePokemonSelect(chain.id)}>
+                {chain.isLegendary && <span className="legendary-badge">LEGENDARY</span>}
+                <div className="pokemon-stages">
+                  {chain.stages.map((pokemon, index) => (
+                    <span key={pokemon.id} className="pokemon-name">
+                      {pokemon.koreanName}
+                      {index < chain.stages.length - 1 && " → "}
+                    </span>
+                  ))}
+                </div>
+                <div className="chain-name">{chain.name}</div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -124,6 +177,42 @@ export default function PokemonOptions({
           color: #666;
         }
 
+        .generation-help {
+          margin-bottom: 0.5rem;
+          font-weight: 500;
+          color: #6366f1;
+        }
+
+        .generation-tabs {
+          display: flex;
+          gap: 0.5rem;
+          margin-top: 0.75rem;
+        }
+
+        .gen-tab {
+          flex: 1;
+          padding: 0.75rem 1.5rem;
+          border: 2px solid #e0e0e0;
+          border-radius: 8px;
+          background: white;
+          color: #555;
+          font-size: 1rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s;
+        }
+
+        .gen-tab:hover {
+          border-color: #a78bfa;
+          background: #f9fafb;
+        }
+
+        .gen-tab.active {
+          border-color: #6366f1;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: white;
+        }
+
         .pokemon-grid {
           display: grid;
           grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -138,6 +227,8 @@ export default function PokemonOptions({
           cursor: pointer;
           transition: all 0.3s;
           background: white;
+          position: relative;
+          overflow: hidden;
         }
 
         .pokemon-card:hover {
@@ -150,6 +241,32 @@ export default function PokemonOptions({
           border-color: #6366f1;
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           color: white;
+        }
+
+        .pokemon-card.legendary {
+          border-color: rgba(255, 215, 64, 0.9);
+          background: radial-gradient(circle at top, #fff8d5 0%, #fff 40%, #fef3c7 100%);
+          box-shadow: 0 0 18px rgba(255, 200, 64, 0.35);
+        }
+
+        .pokemon-card.legendary.selected {
+          border-color: #ffe082;
+          background: linear-gradient(135deg, #ffd966 0%, #ffb347 100%);
+          color: #2d1b00;
+        }
+
+        .legendary-badge {
+          position: absolute;
+          top: 0.5rem;
+          right: 0.5rem;
+          padding: 0.15rem 0.55rem;
+          border-radius: 999px;
+          background: linear-gradient(135deg, #fff3b0, #fdd819);
+          color: #3a2500;
+          font-size: 0.65rem;
+          font-weight: 700;
+          letter-spacing: 0.05em;
+          box-shadow: 0 4px 10px rgba(253, 216, 25, 0.4);
         }
 
         .pokemon-stages {
@@ -174,6 +291,16 @@ export default function PokemonOptions({
 
         .pokemon-card.selected .chain-name {
           color: rgba(255, 255, 255, 0.8);
+        }
+
+        .pokemon-card.legendary .chain-name,
+        .pokemon-card.legendary .pokemon-stages {
+          color: rgba(58, 37, 0, 0.85);
+        }
+
+        .pokemon-card.legendary.selected .chain-name,
+        .pokemon-card.legendary.selected .pokemon-stages {
+          color: #2d1b00;
         }
 
         .evolution-info {
