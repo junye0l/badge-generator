@@ -1,8 +1,8 @@
 "use client";
 
 interface ProviderSelectorProps {
-  currentProvider: "shields" | "skill-icons" | "typing-svg" | "github-stats";
-  onProviderChange: (provider: "shields" | "skill-icons" | "typing-svg" | "github-stats") => void;
+  currentProvider: "shields" | "skill-icons" | "typing-svg" | "github-stats" | "pokemon";
+  onProviderChange: (provider: "shields" | "skill-icons" | "typing-svg" | "github-stats" | "pokemon") => void;
 }
 
 export default function ProviderSelector({
@@ -34,6 +34,12 @@ export default function ProviderSelector({
         onClick={() => onProviderChange("github-stats")}
       >
         GitHub Stats
+      </button>
+      <button
+        className={`provider-btn ${currentProvider === "pokemon" ? "active" : ""}`}
+        onClick={() => onProviderChange("pokemon")}
+      >
+        Pokemon Evolution
       </button>
     </div>
   );

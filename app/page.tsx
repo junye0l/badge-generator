@@ -14,9 +14,11 @@ import { TypingSvgConfig, defaultTypingSvgConfig } from "@/lib/typingSvg";
 import GitHubStatsOptions from "@/components/GitHubStatsOptions";
 import GitHubStatsPreview from "@/components/GitHubStatsPreview";
 import { GitHubStatsConfig, defaultGitHubStatsConfig } from "@/lib/githubStats";
+import PokemonOptions, { PokemonConfig } from "@/components/PokemonOptions";
+import PokemonPreview from "@/components/PokemonPreview";
 
 export default function Home() {
-  const [provider, setProvider] = useState<"shields" | "skill-icons" | "typing-svg" | "github-stats">(
+  const [provider, setProvider] = useState<"shields" | "skill-icons" | "typing-svg" | "github-stats" | "pokemon">(
     "shields",
   );
   const [shieldsStyle, setShieldsStyle] = useState<ShieldsStyle>("plastic");
@@ -24,6 +26,7 @@ export default function Home() {
   const [perLine, setPerLine] = useState(8);
   const [typingConfig, setTypingConfig] = useState<TypingSvgConfig>(defaultTypingSvgConfig);
   const [githubStatsConfig, setGithubStatsConfig] = useState<GitHubStatsConfig>(defaultGitHubStatsConfig);
+  const [pokemonConfig, setPokemonConfig] = useState<PokemonConfig>({ username: "", chainId: "pikachu" });
 
   return (
     <div className="container">
@@ -49,10 +52,15 @@ export default function Home() {
           <GitHubStatsOptions config={githubStatsConfig} onConfigChange={setGithubStatsConfig} />
           <GitHubStatsPreview config={githubStatsConfig} />
         </>
+      ) : provider === "pokemon" ? (
+        <>
+          <PokemonOptions config={pokemonConfig} onConfigChange={setPokemonConfig} />
+          <PokemonPreview config={pokemonConfig} />
+        </>
       ) : (
         <>
           <StyleOptions
-            provider={provider}
+            provider={provider as "shields" | "skill-icons"}
             shieldsStyle={shieldsStyle}
             skillTheme={skillTheme}
             perLine={perLine}
@@ -62,7 +70,7 @@ export default function Home() {
           />
 
           <BadgePreview
-            provider={provider}
+            provider={provider as "shields" | "skill-icons"}
             shieldsStyle={shieldsStyle}
             skillTheme={skillTheme}
             perLine={perLine}
@@ -77,6 +85,7 @@ export default function Home() {
         perLine={perLine}
         typingConfig={typingConfig}
         githubStatsConfig={githubStatsConfig}
+        pokemonConfig={pokemonConfig}
       />
 
       <Footer />
