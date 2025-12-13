@@ -9,7 +9,6 @@ interface PokemonPreviewProps {
 export default function PokemonPreview({ config }: PokemonPreviewProps) {
   const { username, chainId } = config;
 
-  // API URL 생성
   const cardUrl =
     username && chainId
       ? `${window.location.origin}/api/pokemon?user=${encodeURIComponent(username)}&chain=${encodeURIComponent(chainId)}`
@@ -38,15 +37,6 @@ export default function PokemonPreview({ config }: PokemonPreviewProps) {
           />
           <div className="error-message" style={{ display: "none" }}>
             ⚠️ 사용자를 찾을 수 없거나 오류가 발생했습니다
-          </div>
-
-          <div className="preview-info">
-            <p>
-              <strong>사용자:</strong> {username}
-            </p>
-            <p>
-              <strong>진화 라인:</strong> {chainId}
-            </p>
           </div>
         </div>
       )}

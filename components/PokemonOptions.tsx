@@ -20,13 +20,12 @@ export default function PokemonOptions({
     <div className="options-container">
       <h2>포켓몬 설정</h2>
 
-      {/* GitHub 사용자명 입력 */}
       <div className="option-group">
         <label htmlFor="github-username">GitHub 사용자명</label>
         <input
           id="github-username"
           type="text"
-          placeholder="junye0l"
+          placeholder="username"
           value={config.username}
           onChange={(e) =>
             onConfigChange({ ...config, username: e.target.value })
@@ -38,7 +37,6 @@ export default function PokemonOptions({
         </p>
       </div>
 
-      {/* 진화 라인 선택 */}
       <div className="option-group">
         <label htmlFor="evolution-chain">진화 라인 선택</label>
         <div className="pokemon-grid">
@@ -62,25 +60,24 @@ export default function PokemonOptions({
         </div>
       </div>
 
-      {/* 진화 단계 안내 */}
       <div className="option-group">
         <label>진화 단계</label>
         <div className="evolution-info">
           <div className="stage-info">
             <span className="stage-badge">1단계</span>
-            <span>0 ~ 2,999 커밋</span>
+            <span>0 ~ 2,999 Commit</span>
           </div>
           <div className="stage-info">
             <span className="stage-badge">2단계</span>
-            <span>3,000 ~ 5,999 커밋</span>
+            <span>3,000 ~ 5,999 Commit</span>
           </div>
           <div className="stage-info">
             <span className="stage-badge">3단계</span>
-            <span>6,000 ~ 9,999 커밋</span>
+            <span>6,000 ~ 9,999 Commit</span>
           </div>
           <div className="stage-info">
-            <span className="stage-badge shiny">✨ Shiny</span>
-            <span>10,000+ 커밋 (숨겨진 진화)</span>
+            <span className="stage-badge shiny">Shiny</span>
+            <span>10,000+ Commit</span>
           </div>
         </div>
       </div>

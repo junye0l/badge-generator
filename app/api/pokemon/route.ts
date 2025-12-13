@@ -119,7 +119,7 @@ function generatePokemonCardSVG(
   const typeBadge = pokemonType.toUpperCase();
 
   return `
-<svg width="300" height="450" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="200" height="280" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
     <!-- 타입 기반 그라디언트 -->
     <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -132,52 +132,65 @@ function generatePokemonCardSVG(
     </linearGradient>
     <!-- 샤이니 효과 -->
     <filter id="shinyGlow">
-      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
       <feMerge>
         <feMergeNode in="coloredBlur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
+    <!-- GIF 영역 클립 경로 -->
+    <clipPath id="gifClip">
+      <rect x="35" y="54" width="130" height="130" rx="6"/>
+    </clipPath>
   </defs>
 
   <!-- 카드 외곽 테두리 (타입 색상) -->
-  <rect width="300" height="450" rx="15" fill="url(#cardGrad)" stroke="${colors.border}" stroke-width="4"/>
+  <rect width="200" height="280" rx="10" fill="url(#cardGrad)" stroke="${colors.border}" stroke-width="2.5"/>
 
   <!-- 내부 카드 -->
-  <rect x="12" y="12" width="276" height="426" rx="12" fill="url(#innerGrad)" stroke="${colors.border}" stroke-width="2"/>
+  <rect x="8" y="8" width="184" height="264" rx="8" fill="url(#innerGrad)" stroke="${colors.border}" stroke-width="1.5"/>
 
   <!-- 타입 배지 -->
-  <rect x="20" y="20" width="80" height="24" rx="12" fill="${colors.primary}" stroke="${colors.border}" stroke-width="2"/>
-  <text x="60" y="36" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">
+  <rect x="12" y="12" width="45" height="14" rx="7" fill="${colors.primary}" stroke="${colors.border}" stroke-width="1.5"/>
+  <text x="34.5" y="22" font-family="Arial, sans-serif" font-size="7" font-weight="bold" fill="white" text-anchor="middle">
     ${typeBadge}
   </text>
 
   <!-- 포켓몬 이름 -->
-  <text x="150" y="65" font-family="'Courier New', monospace" font-size="26" font-weight="bold" fill="#222" text-anchor="middle" ${isShiny ? 'filter="url(#shinyGlow)"' : ''}>
+  <text x="100" y="42" font-family="'Courier New', monospace" font-size="16" font-weight="bold" fill="#222" text-anchor="middle" ${isShiny ? 'filter="url(#shinyGlow)"' : ''}>
     ${englishName}${shinyBadge}
   </text>
 
-  <!-- 포켓몬 GIF 영역 (그림자 효과) -->
-  <rect x="50" y="85" width="200" height="200" rx="10" fill="white" stroke="${colors.border}" stroke-width="3" style="filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));"/>
-  <image x="65" y="100" width="170" height="170" href="${gifUrl}" style="image-rendering: pixelated;"/>
+  <!-- 포켓몬 GIF 영역 (입체적 배경) -->
+  <rect x="35" y="54" width="130" height="130" rx="6" fill="white" stroke="${colors.border}" stroke-width="2" style="filter: drop-shadow(0 4px 8px rgba(0,0,0,0.25));"/>
+
+  <g clip-path="url(#gifClip)">
+    <!-- 바닥 그림자 (GIF 영역 내부) -->
+    <ellipse cx="100" cy="170" rx="45" ry="6" fill="rgba(0,0,0,0.12)"/>
+
+    <!-- 내부 광택 효과 -->
+    <rect x="40" y="59" width="50" height="30" rx="4" fill="rgba(255,255,255,0.3)" opacity="0.6"/>
+
+    <image x="45" y="64" width="110" height="110" href="${gifUrl}" style="image-rendering: pixelated;"/>
+  </g>
 
   <!-- 커밋 정보 박스 -->
-  <rect x="30" y="310" width="240" height="110" rx="10" fill="white" stroke="${colors.border}" stroke-width="3" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));"/>
+  <rect x="20" y="196" width="160" height="68" rx="6" fill="white" stroke="${colors.border}" stroke-width="2" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));"/>
 
   <!-- 커밋 라벨 -->
-  <text x="150" y="335" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#666" text-anchor="middle">
+  <text x="100" y="212" font-family="Arial, sans-serif" font-size="9" font-weight="600" fill="#666" text-anchor="middle">
     COMMITS
   </text>
 
   <!-- 커밋 수 표시 (현재 / 전체) -->
-  <text x="150" y="375" font-family="'Courier New', monospace" font-size="28" font-weight="bold" fill="${colors.primary}" text-anchor="middle">
+  <text x="100" y="238" font-family="'Courier New', monospace" font-size="18" font-weight="bold" fill="${colors.primary}" text-anchor="middle">
     ${commitText}
   </text>
 
   <!-- 진화 프로그레스 바 -->
-  ${commitsToNext !== null && commitsToNext !== -1 ? `
-  <rect x="50" y="395" width="200" height="8" rx="4" fill="#e0e0e0"/>
-  <rect x="50" y="395" width="${Math.min((commits % (totalNeeded === 3000 ? 3000 : totalNeeded === 6000 ? 3000 : 4000)) / (totalNeeded === 3000 ? 3000 : totalNeeded === 6000 ? 3000 : 4000) * 200, 200)}" height="8" rx="4" fill="${colors.primary}"/>
+  ${commitsToNext !== -1 ? `
+  <rect x="35" y="252" width="130" height="5" rx="2.5" fill="#e0e0e0"/>
+  <rect x="35" y="252" width="${commitsToNext === null ? 130 : Math.min((commits % (totalNeeded === 3000 ? 3000 : totalNeeded === 6000 ? 3000 : 4000)) / (totalNeeded === 3000 ? 3000 : totalNeeded === 6000 ? 3000 : 4000) * 130, 130)}" height="5" rx="2.5" fill="${colors.primary}"/>
   ` : ''}
 </svg>
   `.trim();

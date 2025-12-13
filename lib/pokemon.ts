@@ -40,9 +40,9 @@ export const evolutionChains: EvolutionChain[] = [
     name: 'Pikachu Line',
     type: 'electric',
     stages: [
+      { id: 172, name: 'Pichu', koreanName: '피츄', type: 'electric' },
       { id: 25, name: 'Pikachu', koreanName: '피카츄', type: 'electric' },
       { id: 26, name: 'Raichu', koreanName: '라이츄', type: 'electric' },
-      { id: 135, name: 'Jolteon', koreanName: '쥬피썬더', type: 'electric' },
     ],
   },
   {
