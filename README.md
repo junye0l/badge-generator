@@ -22,3 +22,6 @@
 <a href="https://github.com/DenverCoder1/readme-typing-svg">readme-typing-svg</a>
 
 <a href="https://github.com/anuraghazra/github-readme-stats">github-readme-stats</a>
+
+<a href="https://pokeapi.co/">PokeAPI</a> (Pokémon data & sprites)<br/>
+Pokémon © Nintendo / Creatures Inc. / GAME FREAK inc.
